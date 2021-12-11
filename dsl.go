@@ -23,7 +23,7 @@ func dsl(query string) {
 		os.Exit(1)
 	}
 	queryString := string(queryJSON)
-	response := getResponse("POST", "prototype/dslv2", queryString)
+	response := getResponse("POST", "search/list", queryString)
 	var results map[string]interface{}
 	json.Unmarshal([]byte(response), &results)
 	metaInterface, ok := results["meta"].(map[string]interface{})
@@ -40,7 +40,7 @@ func dsl(query string) {
 	fmt.Println(response)                                // print the first page
 	// print all the other pages
 	for i := 2; i <= int(totalPages); i++ {
-		response = getResponse("POST", "prototype/dslv2?page="+strconv.Itoa(i), queryString)
+		response = getResponse("POST", "search/list?page="+strconv.Itoa(i), queryString)
 		fmt.Println(response)
 	}
 }
